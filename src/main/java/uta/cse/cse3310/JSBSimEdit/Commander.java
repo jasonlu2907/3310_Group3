@@ -18,6 +18,7 @@ import javax.swing.JToolBar;
 
 import uta.cse.cse3310.JSBSimEdit.components.BuoyantForce;
 import uta.cse.cse3310.JSBSimEdit.components.ExternalReaction;
+import uta.cse.cse3310.JSBSimEdit.components.SystemProp;
 
 public class Commander extends JFrame {
   private JLabel display;
@@ -68,9 +69,11 @@ public class Commander extends JFrame {
     // EXTERNAL REACTIONS //////////////////////////////////
     ExternalReaction ext_reaction = new ExternalReaction();
     BuoyantForce buoyant_force = new BuoyantForce();
+    SystemProp system = new SystemProp();
 
     tabbedPane.addTab("external_reactions", ext_reaction);
     tabbedPane.addTab("buoyant_forces", buoyant_force);
+    tabbedPane.addTab("system", system);
 
     // Add the Tabbed Pane to the Commander Window
     add(tabbedPane, BorderLayout.CENTER);
