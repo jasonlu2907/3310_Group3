@@ -16,9 +16,23 @@ import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 
-import uta.cse.cse3310.JSBSimEdit.components.BuoyantForce;
-import uta.cse.cse3310.JSBSimEdit.components.ExternalReaction;
-import uta.cse.cse3310.JSBSimEdit.components.SystemProp;
+import uta.cse.cse3310.JSBSimEdit.UIComponents.FlightControl;
+import uta.cse.cse3310.JSBSimEdit.UIComponents.Aerodynamics;
+import uta.cse.cse3310.JSBSimEdit.UIComponents.Autopilot;
+import uta.cse.cse3310.JSBSimEdit.UIComponents.BuoyantForce;
+import uta.cse.cse3310.JSBSimEdit.UIComponents.ExternalReaction;
+import uta.cse.cse3310.JSBSimEdit.UIComponents.GeneralInformation;
+import uta.cse.cse3310.JSBSimEdit.UIComponents.GroundReaction;
+import uta.cse.cse3310.JSBSimEdit.UIComponents.Input;
+import uta.cse.cse3310.JSBSimEdit.UIComponents.MassBalance;
+import uta.cse.cse3310.JSBSimEdit.UIComponents.Metrics;
+import uta.cse.cse3310.JSBSimEdit.UIComponents.Output;
+import uta.cse.cse3310.JSBSimEdit.UIComponents.Propulsion;
+import uta.cse.cse3310.JSBSimEdit.UIComponents.SystemProp;
+
+//import uta.cse.cse3310.JSBSimEdit.components.BuoyantForce;
+//import uta.cse.cse3310.JSBSimEdit.components.ExternalReaction;
+//import uta.cse.cse3310.JSBSimEdit.components.SystemProp;
 
 public class Commander extends JFrame {
   private JLabel display;
@@ -69,11 +83,32 @@ public class Commander extends JFrame {
     // EXTERNAL REACTIONS //////////////////////////////////
     ExternalReaction ext_reaction = new ExternalReaction();
     BuoyantForce buoyant_force = new BuoyantForce();
+    Propulsion propulsion = new Propulsion();
     SystemProp system = new SystemProp();
+    Metrics metrics = new Metrics();
+    GroundReaction groundreact = new GroundReaction();
+    MassBalance massbalance = new MassBalance();
+    GeneralInformation geninfo = new GeneralInformation();
+    Output output = new Output();
+    Input input = new Input();
+    Aerodynamics aero = new Aerodynamics();
+    Autopilot autopilot = new Autopilot();
+    FlightControl flightcontrol = new FlightControl();
 
+    tabbedPane.addTab("general_info", geninfo);
+    tabbedPane.addTab("metrics", metrics);
+    tabbedPane.addTab("mass_balance", massbalance);
+    tabbedPane.addTab("ground_reactions", groundreact);
     tabbedPane.addTab("external_reactions", ext_reaction);
+    tabbedPane.addTab("propulsion", propulsion);
     tabbedPane.addTab("buoyant_forces", buoyant_force);
     tabbedPane.addTab("system", system);
+    tabbedPane.addTab("flight_control", flightcontrol);
+    tabbedPane.addTab("aerodynamics", aero);
+    tabbedPane.addTab("autopilot", autopilot);
+    tabbedPane.addTab("input", input);
+    tabbedPane.addTab("output", output);
+    
 
     // Add the Tabbed Pane to the Commander Window
     add(tabbedPane, BorderLayout.CENTER);
