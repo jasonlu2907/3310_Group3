@@ -103,7 +103,7 @@
       <brake_group> NOSE </brake_group>
       <retractable>1</retractable>
     </contact>
-  <contact type="BOGEY" name="LEFT_MLG">
+    <contact type="BOGEY" name="LEFT_MLG">
       <location unit="IN">
         <x> -158.6 </x>
         <y> -48 </y>
@@ -118,7 +118,7 @@
       <brake_group> LEFT </brake_group>
       <retractable>1</retractable>
     </contact>
-  <contact type="BOGEY" name="RIGHT_MLG">
+    <contact type="BOGEY" name="RIGHT_MLG">
       <location unit="IN">
         <x> -158.6 </x>
         <y> 48 </y>
@@ -133,7 +133,7 @@
       <brake_group> RIGHT </brake_group>
       <retractable>1</retractable>
     </contact>
-  <contact type="STRUCTURE" name="LEFT_WT">
+    <contact type="STRUCTURE" name="LEFT_WT">
       <location unit="IN">
         <x> -121.3 </x>
         <y> -189 </y>
@@ -226,6 +226,7 @@
   </ground_reactions>
 
   <external_reactions>
+<!--    <file></file>-->
     <force name="pushback" frame="BODY">
       <location unit="IN">
         <x> -2.98081 </x>
@@ -238,7 +239,7 @@
         <z>0</z>
       </direction>
     </force>
-
+    <!--    <property></property>-->
    <force name="hook" frame="BODY">
       <location unit="IN">
         <x> 100.669 </x>
@@ -374,11 +375,11 @@
       <switch name="fcs/tef-pos-rad">
         <default value="0.0" />
         <test logic="AND" value="0.349">
-     velocities/vc-kts lt 250
-    </test>
+          velocities/vc-kts lt 250
+        </test>
         <test logic="AND" value="-0.0349">
-     velocities/mach gt 0.9
-    </test>
+          velocities/mach gt 0.9
+        </test>
       </switch>
 
       <pure_gain name="fcs/tef-pos-norm">
@@ -431,8 +432,8 @@
       <switch name="fcs/aileron-pid-trigger">
         <default value="1" />
         <test value="0">
-     velocities/vc-kts lt 20.0
-    </test>
+          velocities/vc-kts lt 20.0
+        </test>
       </switch>
 
       <pid name="fcs/roll-rate-pid">
@@ -467,8 +468,8 @@
       <switch name="fcs/roll-rate-command-switch">
         <default value="fcs/roll-rate-command" />
         <test value="fcs/aileron-cmd-norm">
-     fcs/fbw-override == 1
-    </test>
+          fcs/fbw-override == 1
+        </test>
       </switch>
 
       <kinematic name="fcs/aileron-position">
@@ -491,9 +492,9 @@
         <table>
           <independentVar>velocities/mach</independentVar>
           <tableData>
-      0.0  1.0
-      1.0  0.15
-     </tableData>
+            0.0 1.0
+            1.0 0.15
+          </tableData>
         </table>
       </scheduled_gain>
 
@@ -600,12 +601,12 @@
         <table>
           <independentVar>aero/alpha-rad</independentVar>
           <tableData>
-     -0.5236    0.0
-     -0.5       0.11
-      0.0       1.0
-      0.5       0.11
-      0.5236    0.0
-     </tableData>
+            -0.5236 0.0
+            -0.5 0.11
+            0.0 1.0
+            0.5 0.11
+            0.5236 0.0
+          </tableData>
         </table>
       </scheduled_gain>
 
@@ -826,9 +827,9 @@
       <switch name="fcs/gear-wow">
         <default value="0" />
         <test logic="AND" value="1">
-     gear/unit[1]/WOW eq 1
-     gear/unit[2]/WOW eq 1
-    </test>
+          gear/unit[1]/WOW eq 1
+          gear/unit[2]/WOW eq 1
+        </test>
       </switch>
 
       <kinematic name="fcs/gear-control">
@@ -851,10 +852,10 @@
         <table>
           <independentVar>velocities/vg-fps</independentVar>
           <tableData>
-      10.0  80.0
-      50.0  15.0
-      150.0    2.0
-     </tableData>
+            10.0 80.0
+            50.0 15.0
+            150.0 2.0
+          </tableData>
         </table>
         <output>fcs/steer-pos-deg</output>
       </scheduled_gain>
@@ -866,20 +867,20 @@
       <switch name="fcs/lef-pos-rad">
         <default value="0.0" />
         <test logic="AND" value="-0.0349">
-     fcs/gear-wow eq 1
-     gear/gear-pos-norm gt 0
-    </test>
+          fcs/gear-wow eq 1
+          gear/gear-pos-norm gt 0
+        </test>
         <test logic="AND" value="0.436">
-     gear/gear-pos-norm eq 0
-     aero/alpha-rad gt 0.2618
-    </test>
+          gear/gear-pos-norm eq 0
+          aero/alpha-rad gt 0.2618
+        </test>
         <test logic="AND" value="0.262">
-     fcs/gear-wow eq 0
-     aero/alpha-rad gt 0.0873
-    </test>
+          fcs/gear-wow eq 0
+          aero/alpha-rad gt 0.0873
+        </test>
         <test logic="AND" value="-0.0349">
-     velocities/mach gt 0.9
-    </test>
+          velocities/mach gt 0.9
+        </test>
       </switch>
 
       <pure_gain name="fcs/lef-pos-norm">
@@ -958,9 +959,9 @@
         <table>
           <independentVar>gear/gear-cmd-norm</independentVar>
           <tableData>
-      0 1.0
-      1 0.71667
-     </tableData>
+            0 1.0
+            1 0.71667
+          </tableData>
         </table>
         <!-- <output>fcs/speedbrake-pos-norm</output> -->
       </scheduled_gain>
@@ -1042,6 +1043,309 @@
 
   </flight_control>
 
+  <autopilot name="F15 Autopilot">
+
+    <!-- INTERFACE PROPERTIES -->
+
+    <property>ap/attitude_hold</property>
+    <property>ap/altitude_hold</property>
+    <property>ap/heading_hold</property>
+    <property>ap/altitude_setpoint</property>
+    <property>ap/heading_setpoint</property>
+    <property>ap/aileron_cmd</property>
+    <property>ap/elevator_cmd</property>
+    <property>ap/airspeed_setpoint</property>
+    <property>ap/airspeed_hold</property>
+    <property>ap/throttle-cmd-norm</property>
+
+    <!-- INITIAL GAIN VALUES -->
+
+    <property value="0.5">ap/hdg-roll-err-c1</property>
+    <property value="50.0">ap/roll-pid-kp</property>
+    <property value="5.0">ap/roll-pid-ki</property>
+    <property value="17.0">ap/roll-pid-kd</property>
+
+    <!--
+    =====================================================
+    ROLL CHANNEL
+    =====================================================
+    -->
+
+    <!-- Wing leveler -->
+
+    <channel name="Roll wing leveler">
+
+      <sensor name="fcs/attitude/sensor/phi-rad">
+        <input>attitude/phi-rad</input>
+        <lag>0.5</lag>
+        <delay>2</delay>
+        <noise variation="PERCENT" distribution="GAUSSIAN">0.05</noise>
+        <quantization name="attitude/sensor/quantized/phi-rad">
+          <bits>12</bits>
+          <min>-3.1416</min>
+          <max>3.1416</max>
+        </quantization>
+        <bias>0.001</bias>
+      </sensor>
+
+      <switch name="fcs/wing-leveler-ap-on-off">
+        <default value="-1"/>
+        <test value="0">
+          ap/attitude_hold == 1
+        </test>
+      </switch>
+
+      <pid name="fcs/roll-ap-error-pid">
+        <input>attitude/phi-rad</input>
+        <kp>ap/roll-pid-kp</kp>
+        <ki>ap/roll-pid-ki</ki>
+        <kd>ap/roll-pid-kd</kd>
+        <trigger>fcs/wing-leveler-ap-on-off</trigger>
+      </pid>
+
+      <switch name="fcs/roll-ap-autoswitch">
+        <default value="0.0"/>
+        <test value="-fcs/roll-ap-error-pid">
+          ap/attitude_hold == 1
+        </test>
+      </switch>
+
+    </channel>
+
+    <!-- Heading hold -->
+
+    <channel name="Roll heading hold">
+      <pure_gain name="fcs/heading-true-degrees">
+        <input>attitude/heading-true-rad</input>
+        <gain>57.3</gain> <!-- convert to degrees -->
+      </pure_gain>
+
+      <summer name="fcs/heading-error">
+        <input>-fcs/heading-true-degrees</input>
+        <input>ap/heading_setpoint</input>
+      </summer>
+
+      <switch name="fcs/heading-error-bias-switch">
+        <default value="0.0"/>
+        <test value="360.0">
+          fcs/heading-error lt -180
+        </test>
+        <test value="-360.0">
+          fcs/heading-error gt 180
+        </test>
+      </switch>
+
+      <summer name="fcs/heading-corrected">
+        <input>fcs/heading-error-bias-switch</input>
+        <input>fcs/heading-error</input>
+        <clipto>
+          <min>-33</min>
+          <max>33</max>
+        </clipto>
+      </summer>
+
+      <pure_gain name="fcs/heading-command">
+        <input>fcs/heading-corrected</input>
+        <gain>0.02265</gain>
+      </pure_gain>
+
+      <lag_filter name="fcs/heading-roll-error-lag">
+        <input>fcs/heading-command</input>
+        <c1>ap/hdg-roll-err-c1</c1>
+      </lag_filter>
+
+      <summer name="fcs/heading-roll-error">
+        <input>fcs/heading-roll-error-lag</input>
+        <input>-attitude/phi-rad</input>
+      </summer>
+
+      <switch name="fcs/heading-roll-error-switch">
+        <default value="0.0"/>
+        <test value="fcs/heading-roll-error">
+          ap/heading_hold == 1
+        </test>
+      </switch>
+
+      <pid name="fcs/heading-pi-controller">
+        <input>fcs/heading-roll-error-switch</input>
+        <kp>7.0</kp>
+        <ki>0.20</ki>
+        <kd>6.0</kd>
+      </pid>
+
+      <switch name="fcs/roll-command-selector">
+        <default value="0.0"/>
+        <test value="fcs/heading-pi-controller">
+          ap/heading_hold == 1
+          gear/unit[2]/WOW == 0
+        </test>
+        <test value="fcs/roll-ap-autoswitch">
+          ap/attitude_hold == 1
+          gear/unit[2]/WOW == 0
+        </test>
+        <output>ap/aileron_cmd</output>
+        <clipto>
+          <min>-1.0</min>
+          <max>1.0</max>
+        </clipto>
+      </switch>
+      <!--
+        <switch name="fcs/roll-command-selector-steering">
+          <default value="0.0"/>
+          <test value="fcs/heading-pi-controller">
+            ap/heading_hold == 1
+            gear/unit/WOW == 1
+          </test>
+          <output>fcs/steer-cmd-norm</output>
+        </switch>
+      -->
+    </channel>
+    <!--
+    =====================================================
+    PITCH CHANNEL
+    =====================================================
+    -->
+
+    <!-- Altitude hold -->
+
+    <!-- The Altitude Error component below computes the altitude error, subtracting
+         the desired altitude (altitude_setpoint) from the actual altitude above sea
+         level (_not_ Above Ground Level).  This error signal is interpreted as an
+         hdot command (hdot is time rate of change of altitude, or rate of climb). As
+         such it is limited to a maximum absolute value of 12 fps here (720 fpm). The
+         maximum achievable climb rate depends on altitude. The commanded climb rate
+         is scheduled in the HDot Command component, below. For the given altitude
+         (left column in the table), the commanded maaximum climb rate divided by 100
+         is given in the right column.
+    -->
+
+    <channel name="Pitch altitude hold">
+
+      <!--
+      The difference between the desired altitude and the actual altitude
+      is determined, and limited to 100. The output from this component is
+      the desired climb rate in percent of maximum.
+      -->
+      <summer name="fcs/altitude-error">
+        <input>ap/altitude_setpoint</input>
+        <input>-position/h-agl-ft</input>
+        <clipto>
+          <min>-150</min>
+          <max>150</max>
+        </clipto>
+      </summer>
+
+      <!--
+      The desired climb rate is lagged slightly for stability.
+      -->
+      <lag_filter name="fcs/alt-error-lag">
+        <input>fcs/altitude-error</input>
+        <c1>1</c1>
+      </lag_filter>
+
+      <!--
+      Dependent on altitude, the lagged (and limited) altitude error is multipled
+      by the scheduled gain determined from the table, below. The output from this
+      component is the absolute climb rate in feet/second. For example, if the desired
+      climb rate is 100 percent of maximum and the current altitude is 1000.0 ft., then
+      the output from this component would be 11 ft. sec.
+      -->
+      <scheduled_gain name="fcs/hdot-command">
+        <input>fcs/alt-error-lag</input>
+        <table>
+          <independentVar>position/h-sl-ft</independentVar>
+          <tableData>
+            0.0 0.62
+            1000.0 0.61
+            2000.0 0.60
+            3000.0 0.596
+            4000.0 0.493
+            5000.0 0.486
+            6000.0 0.478
+            7000.0 0.469
+            8000.0 0.461
+            9000.0 0.453
+            10000.0 0.445
+            11000.0 0.437
+            12000.0 0.428
+          </tableData>
+        </table>
+      </scheduled_gain>
+
+      <!--
+      This component calculates the climb rate error, taking the difference between
+      the commanded climb rate (from the previous component) and actual climb rate
+      in ft./sec.
+      -->
+      <summer name="fcs/hdot-error">
+        <input>fcs/hdot-command</input>
+        <input>-velocities/h-dot-fps</input>
+      </summer>
+
+      <!--
+      If the altitude hold autopilot command is ON, then this switch component will
+      pass through the climb rate error (from the previous component). Otherwise, it
+      will pass zero.
+      -->
+      <switch name="fcs/ap-alt-hold-switch">
+        <default value="0.0"/>
+        <test value="fcs/hdot-error">
+          ap/altitude_hold == 1
+        </test>
+      </switch>
+
+      <!--
+      The windup trigger below assumes the elevator will travel +/-23 degrees. The
+      elevator, however, does not travel symmetrically. This will need to be addressed
+      in a fix to the deadband component.
+      -->
+      <deadband name="fcs/windup-trigger">
+        <input>fcs/elevator-pos-deg</input>
+        <width>46.0</width>
+      </deadband>
+
+      <!--
+      The integrator integrates the hdot error (when the switch component passes that
+      signal through above when the altitude hold is selected ON). In the situation
+      where the elevator becomes saturated, the integrator ceases to integrate. The
+      windup protection is indicated below, with the windup-trigger property being
+      the trigger to halt integration. When the windup trigger is non-zero (when the
+      elevator position falls outside the range +/- 23 degrees - a deadband of 46
+      degrees) then the deadband passes a non-zero value, triggering the anti-windup
+      logic in the integrator.
+
+      The proportional component multiplies the error signal by a constant, providing
+      the proportional control action of this PI altitude hold controller.
+
+      The pid component combines the proportional and integral control
+      signals. It clips the sum to +/- 1.0.
+      -->
+
+      <pid name="fcs/altitude-hold-pid">
+        <input>fcs/ap-alt-hold-switch</input>
+        <kp>0.01</kp>
+        <ki>0.00015</ki>
+        <kd>0.0023</kd>
+        <trigger>fcs/windup-trigger</trigger>
+        <clipto>
+          <min>-1.0</min>
+          <max>1.0</max>
+        </clipto>
+      </pid>
+
+      <!--
+      The elevator component flips the sign on the output of the control summer
+      above and sets the ap/elevator_command property.
+      -->
+      <pure_gain name="fcs/elevator">
+        <input>fcs/altitude-hold-pid</input>
+        <gain>-1.0</gain>
+        <output>ap/elevator_cmd</output>
+      </pure_gain>
+    </channel>
+
+  </autopilot>
+
   <aerodynamics>
 
     <function name="aero/function/kCLge">
@@ -1049,20 +1353,20 @@
       <table>
         <independentVar>aero/h_b-mac-ft</independentVar>
         <tableData>
-       0.0000  1.2290
-       0.1000  1.1240
-       0.1500  1.1160
-       0.2000  1.1240
-       0.3000  1.1050
-       0.4000  1.0410
-       0.5000  1.0340
-       0.6000  1.0190
-       0.7000  1.0080
-       0.8000  1.0030
-       0.9000  1.0010
-       1.0000  1.0000
-       1.1000  1.0000
-     </tableData>
+          0.0000 1.2290
+          0.1000 1.1240
+          0.1500 1.1160
+          0.2000 1.1240
+          0.3000 1.1050
+          0.4000 1.0410
+          0.5000 1.0340
+          0.6000 1.0190
+          0.7000 1.0080
+          0.8000 1.0030
+          0.9000 1.0010
+          1.0000 1.0000
+          1.1000 1.0000
+        </tableData>
       </table>
     </function>
 

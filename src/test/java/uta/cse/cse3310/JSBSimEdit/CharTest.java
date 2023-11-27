@@ -4,9 +4,10 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
+import uta.cse.cse3310.JSBSimEdit.utils.CharacterUtil;
 
 /**
- * Test specific functions in CharUtils
+ * Test specific functions in CharacterUtil
  */
 
 public class CharTest
@@ -14,10 +15,10 @@ public class CharTest
     @Test
     public void Case()
     {
-        assertTrue( CharUtils.isUpper('A') );
-        assertTrue( CharUtils.isUpper('B') );
-        assertTrue( CharUtils.isUpper('C') );
-        assertTrue( CharUtils.isUpper('Z') );
-        assertFalse( CharUtils.isUpper('a') );
+        assertTrue( CharacterUtil.isUpperCase('A') );
+        assertTrue( CharacterUtil.isUpperCase('B') );
+        assertTrue( CharacterUtil.isUpperCase('C') );
+        assertTrue( CharacterUtil.isUpperCase('Z') );
+        assertFalse( CharacterUtil.isUpperCase('a') );
     }
 }
