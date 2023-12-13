@@ -9,6 +9,10 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Font;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -22,10 +26,17 @@ import javax.swing.JToolBar;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 public class MainWindow extends JFrame {
     private File file;
     FdmConfig cfg;
+    JSONObject engineMgr;
     JAXBContext jaxbContext;
+
     public MainWindow(String title) {
         super(title);
         this.setLocationByPlatform(true);
@@ -45,6 +56,7 @@ public class MainWindow extends JFrame {
         display.setFont(new Font("SansSerif", Font.BOLD, 17));
         add(display, BorderLayout.CENTER);
 
+        loadEngineMgr();
 
         // JScrollPane scrollPane = new JScrollPane(resultTextArea);
         // getContentPane().setLayout(new BorderLayout());
@@ -58,14 +70,14 @@ public class MainWindow extends JFrame {
     protected void parseXMLFile() {
         try {
             jaxbContext = JAXBContext.newInstance("generated");
-    
+
             Unmarshaller um = jaxbContext.createUnmarshaller();
             // Unmarshal (read) an XML document into a Java object
             cfg = (FdmConfig) um.unmarshal(file);
 
-//            Marshaller m = jaxbContext.createMarshaller();
-//            m.setProperty("jaxb.formatted.output", true);
-//            m.marshal(cfg, new File("output.xml"));
+            // Marshaller m = jaxbContext.createMarshaller();
+            // m.setProperty("jaxb.formatted.output", true);
+            // m.marshal(cfg, new File("output.xml"));
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -91,16 +103,15 @@ public class MainWindow extends JFrame {
         int result = fc.showOpenDialog(this); // Run dialog, return button clicked
         if (result == JFileChooser.APPROVE_OPTION) { // Also CANCEL_OPTION and ERROR_OPTION
             file = fc.getSelectedFile(); // Obtain the selected File object
-//            System.out.println(fc.getSelectedFile());
+            // System.out.println(fc.getSelectedFile());
             parseXMLFile();
-            new CommanderWindow("JSBSim Commander", cfg, this);
+            new CommanderWindow("JSBSim Commander", cfg, engineMgr, this, file);
         }
     }
 
     protected void onQuitClick() {
         System.exit(0);
     }
-
 
     private JMenuBar createMenuBar() {
         JMenuItem openMenuItem = new JMenuItem("Open");
@@ -119,12 +130,14 @@ public class MainWindow extends JFrame {
     }
 
     private JToolBar createToolBar() {
-        JButton openFileButton = new JButton(new ImageIcon("src/main/java/uta/cse/cse3310/JSBSimEdit/ui/resources/airplane.png"));
+        JButton openFileButton = new JButton(
+                new ImageIcon("src/main/java/uta/cse/cse3310/JSBSimEdit/ui/resources/airplane.png"));
         openFileButton.setActionCommand("Open File");
         openFileButton.setToolTipText("Open an existing fileMenu");
         openFileButton.addActionListener(event -> onOpenClick());
 
-        JButton quitButton = new JButton(new ImageIcon("src/main/java/uta/cse/cse3310/JSBSimEdit/ui/resources/reject.png"));
+        JButton quitButton = new JButton(
+                new ImageIcon("src/main/java/uta/cse/cse3310/JSBSimEdit/ui/resources/reject.png"));
         quitButton.setActionCommand("Quit");
         quitButton.setToolTipText("Exit Window");
         quitButton.addActionListener(event -> onQuitClick());
@@ -134,5 +147,20 @@ public class MainWindow extends JFrame {
         toolBar.add(quitButton);
 
         return toolBar;
+    }
+
+    private void loadEngineMgr() {
+        JSONParser parser = new JSONParser();
+        try (FileReader reader = new FileReader("src/main/resources/config/EngineMgr.json")) {
+            Object obj = parser.parse(reader);
+
+            engineMgr = (JSONObject) obj;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

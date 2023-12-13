@@ -1,0 +1,216 @@
+{
+  "engines": [
+    {
+      "id": "AJ26-33A",
+      "type": "rocket_engine",
+      "name": "AJ26-33A",
+      "description": "NO INFO"
+    },
+    {
+      "id": "CF6-80C2",
+      "type": "turbine_engine",
+      "name": "CF6-80C2",
+      "description": "NO INFO"
+    },
+    {
+      "id": "CFM56",
+      "type": "turbine_engine",
+      "name": "CFM56",
+      "description": "NO INFO"
+    },
+    {
+      "id": "CFM56_5",
+      "type": "turbine_engine",
+      "name": "CFM56_5",
+      "description": "NO INFO"
+    },
+    {
+      "id": "electric_1mw",
+      "type": "electric_engine",
+      "name": "electric_1mw",
+      "description": "NO INFO"
+    },
+    {
+      "id": "engIO360C",
+      "type": "piston_engine",
+      "name": "engIO360C",
+      "description": "NO INFO"
+    },
+    {
+      "id": "engIO470D",
+      "type": "piston_engine",
+      "name": "engIO470D",
+      "description": "NO INFO"
+    },
+    {
+      "id": "engIO540AB1A5",
+      "type": "piston_engine",
+      "name": "engIO540AB1A5",
+      "description": "NO INFO"
+    },
+    {
+      "id": "engRRMerlin61",
+      "type": "piston_engine",
+      "name": "engRRMerlin61",
+      "description": "NO INFO"
+    },
+    {
+      "id": "engRRMerlinXII",
+      "type": "piston_engine",
+      "name": "engRRMerlinXII",
+      "description": "NO INFO"
+    },
+    {
+      "id": "engtm601",
+      "type": "turboprop_engine",
+      "name": "engtm601",
+      "description": "NO INFO"
+    },
+    {
+      "id": "eng_io320",
+      "type": "piston_engine",
+      "name": "eng_io320",
+      "description": "NO INFO"
+    },
+    {
+      "id": "F100-PW-229",
+      "type": "turbine_engine",
+      "name": "F100-PW-229",
+      "description": "NO INFO"
+    },
+    {
+      "id": "F119-PW1",
+      "type": "turbine_engine",
+      "name": "F119-PW1",
+      "description": "NO INFO"
+    },
+    {
+      "id": "GE-CF6-80C2-B1F",
+      "type": "turbine_engine",
+      "name": "GE-CF6-80C2-B1F",
+      "description": "NO INFO"
+    },
+    {
+      "id": "J33-A-35",
+      "type": "turbine_engine",
+      "name": "J33-A-35",
+      "description": "NO INFO"
+    },
+    {
+      "id": "J52",
+      "type": "turbine_engine",
+      "name": "J52",
+      "description": "NO INFO"
+    },
+    {
+      "id": "J69-T25",
+      "type": "turbine_engine",
+      "name": "J69-T25",
+      "description": "NO INFO"
+    },
+    {
+      "id": "J79-GE-11A",
+      "type": "turbine_engine",
+      "name": "J79-GE-11A",
+      "description": "NO INFO"
+    },
+    {
+      "id": "J85-GE-5",
+      "type": "turbine_engine",
+      "name": "J85-GE-5",
+      "description": "NO INFO"
+    },
+    {
+      "id": "JT9D-3",
+      "type": "turbine_engine",
+      "name": "JT9D-3",
+      "description": "NO INFO"
+    },
+    {
+      "id": "LMdescent",
+      "type": "FG_ROCKET",
+      "name": "LMdescent",
+      "description": "NO INFO"
+    },
+    {
+      "id": "MerlinV1650",
+      "type": "piston_engine",
+      "name": "MerlinV1650",
+      "description": "NO INFO"
+    },
+    {
+      "id": "Olympus593Mrk610",
+      "type": "turbine_engine",
+      "name": "Olympus593Mrk610",
+      "description": "NO INFO"
+    }
+  ],
+  "thrusters": [
+    {
+      "id": "AJ26-33_nozzle",
+      "type": "nozzle",
+      "name": "AJ26-33_nozzle",
+      "description": "NO INFO"
+    },
+    {
+      "id": "direct",
+      "type": "direct",
+      "name": "direct",
+      "description": "NO INFO"
+    },
+    {
+      "id": "HamiltonStd6243A-3",
+      "type": "propeller",
+      "name": "HamiltonStd6243A-3",
+      "description": "NO INFO"
+    },
+    {
+      "id": "LM_descent_nozzle",
+      "type": "FG_NOZZLE",
+      "name": "LM_descent_nozzle",
+      "description": "NO INFO"
+    },
+    {
+      "id": "P51prop",
+      "type": "propeller",
+      "name": "P51prop",
+      "description": "NO INFO"
+    },
+    {
+      "id": "prop30FP2B",
+      "type": "propeller",
+      "name": "prop30FP2B",
+      "description": "NO INFO"
+    },
+    {
+      "id": "propC10v",
+      "type": "propeller",
+      "name": "propC10v",
+      "description": "NO INFO"
+    },
+    {
+      "id": "propC6v",
+      "type": "propeller",
+      "name": "propC6v",
+      "description": "NO INFO"
+    },
+    {
+      "id": "propC8v",
+      "type": "propeller",
+      "name": "propC8v",
+      "description": "NO INFO"
+    },
+    {
+      "id": "propDA-R352_6-123-F_2",
+      "type": "propeller",
+      "name": "propDA-R352_6-123-F_2",
+      "description": "NO INFO"
+    },
+    {
+      "id": "prop_75in2f",
+      "type": "propeller",
+      "name": "prop_75in2f",
+      "description": "NO INFO"
+    }
+  ]
+}

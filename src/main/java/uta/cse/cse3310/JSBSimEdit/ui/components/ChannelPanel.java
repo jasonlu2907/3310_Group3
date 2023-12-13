@@ -1,8 +1,9 @@
 package uta.cse.cse3310.JSBSimEdit.ui.components;
 
+import uta.cse.cse3310.JSBSimEdit.ui.components.flightcontrol.DraggableIcon;
+
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;

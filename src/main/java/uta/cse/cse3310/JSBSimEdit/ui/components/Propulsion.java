@@ -23,6 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import generated.Capacity;
 import generated.Contents;
@@ -36,6 +38,7 @@ import generated.Orient;
 
 public class Propulsion extends JPanel {
   private final CommanderWindow mainFrame;
+  private JSONObject engineMgr;
   private FdmConfig cfg;
 
   private ArrayList<Engine> enginesList;
@@ -46,15 +49,16 @@ public class Propulsion extends JPanel {
 
   private ArrayList<Thruster> thrustersList;
 
-  private  String[] contentsUnits = { "LBS", "KG" };
+  private String[] contentsUnits = { "LBS", "KG" };
   private String[] capacityUnits = { "LBS", "KG" };
   private String[] locationUnits = { "FT", "M", "IN" };
   private String[] orientUnits = { "DEG", "RAD" };
 
-  public Propulsion(FdmConfig cfg, CommanderWindow mainFrame) {
+  public Propulsion(FdmConfig cfg, JSONObject engineMgr, CommanderWindow mainFrame) {
     this.mainFrame = mainFrame;
     this.cfg = cfg;
-    setLayout(new BorderLayout());
+    this.engineMgr = engineMgr;
+    this.setLayout(new BorderLayout());
 
     this.enginesList = new ArrayList<Engine>();
     this.enginesIndexMap = new HashMap<Integer, Integer>();
@@ -94,10 +98,15 @@ public class Propulsion extends JPanel {
     add(mainPanel);
   }
 
-  // TODO: Where to get the available engines and thrusters?
   protected JPanel createAvailableEnginesPanel() {
-    DefaultListModel<String> availableEngine = new DefaultListModel<String>();
-    JList<String> availableEngineListDisplay = new JList<>(availableEngine);
+    JSONArray availableEngines = (JSONArray) engineMgr.get("engines");
+
+    DefaultListModel<String> availableEngineModel = new DefaultListModel<String>();
+    for (int i = 0; i < availableEngines.size(); i++) {
+      JSONObject obj = (JSONObject) availableEngines.get(i);
+      availableEngineModel.addElement((String) obj.get("name"));
+    }
+    JList<String> availableEngineListDisplay = new JList<>(availableEngineModel);
 
     JPanel panel = new JPanel(new BorderLayout());
     panel.setBorder(new TitledBorder("Available Engines"));
@@ -106,10 +115,15 @@ public class Propulsion extends JPanel {
     return panel;
   }
 
-  // TODO: Where to get the available engines and thrusters?
   protected JPanel createAvailableThrustersPanel() {
-    DefaultListModel<String> availableThrusters = new DefaultListModel<String>();
-    JList<String> availableThrustersListDisplay = new JList<>(availableThrusters);
+    JSONArray availableThrusters = (JSONArray) engineMgr.get("thrusters");
+
+    DefaultListModel<String> availableThrustersModel = new DefaultListModel<String>();
+    for (int i = 0; i < availableThrusters.size(); i++) {
+      JSONObject obj = (JSONObject) availableThrusters.get(i);
+      availableThrustersModel.addElement((String) obj.get("name"));
+    }
+    JList<String> availableThrustersListDisplay = new JList<>(availableThrustersModel);
 
     JPanel panel = new JPanel(new BorderLayout());
     panel.setBorder(new TitledBorder("Available Thrusters"));
@@ -323,9 +337,10 @@ public class Propulsion extends JPanel {
 
   protected void onDeleteTankClick(Integer index) {
     Object tankToDelete = cfg.getPropulsion().getEngineOrTank().get(tanksIndexMap.get(index));
-    cfg.getPropulsion().getEngineOrTank().remove(tankToDelete);
-    tanksList.remove(tanksList.get(index));
-
+    if (tankToDelete != null) {
+      cfg.getPropulsion().getEngineOrTank().remove(tankToDelete);
+      tanksList.remove(tanksList.get(index));
+    }
     mainFrame.refreshCfg(cfg);
   }
 
@@ -347,7 +362,7 @@ public class Propulsion extends JPanel {
     JPanel contents = new JPanel(new FlowLayout());
     contents.setBorder(new TitledBorder("Contents"));
     contents.add(new JLabel("Contents: "));
-    JTextField contentsField = new JTextField();
+    JTextField contentsField = new JTextField("0");
     contentsField.setPreferredSize(new Dimension(100, 20));
     contents.add(contentsField);
 
@@ -357,7 +372,7 @@ public class Propulsion extends JPanel {
     JPanel capacity = new JPanel(new FlowLayout());
     capacity.setBorder(new TitledBorder("Capacity"));
     capacity.add(new JLabel("Capacity: "));
-    JTextField capacityField = new JTextField();
+    JTextField capacityField = new JTextField("0");
     capacityField.setPreferredSize(new Dimension(100, 20));
     capacity.add(capacityField);
 
@@ -366,9 +381,9 @@ public class Propulsion extends JPanel {
 
     JPanel location = new JPanel(new GridLayout(1, 4));
     location.setBorder(new TitledBorder("Location"));
-    JTextField locationXField = new JTextField();
-    JTextField locationYField = new JTextField();
-    JTextField locationZField = new JTextField();
+    JTextField locationXField = new JTextField("0");
+    JTextField locationYField = new JTextField("0");
+    JTextField locationZField = new JTextField("0");
     addLabelAndTextField(location, "x =", locationXField);
     addLabelAndTextField(location, "y =", locationYField);
     addLabelAndTextField(location, "z =", locationZField);
@@ -542,9 +557,10 @@ public class Propulsion extends JPanel {
 
   protected void onDeletePairClick(Integer index) {
     Object pairToDelete = cfg.getPropulsion().getEngineOrTank().get(enginesIndexMap.get(index));
-    cfg.getPropulsion().getEngineOrTank().remove(pairToDelete);
-    enginesList.remove(enginesList.get(index));
-
+    if (pairToDelete != null) {
+      cfg.getPropulsion().getEngineOrTank().remove(pairToDelete);
+      enginesList.remove(enginesList.get(index));
+    }
     mainFrame.refreshCfg(cfg);
   }
 
@@ -575,9 +591,9 @@ public class Propulsion extends JPanel {
 
     JPanel location = new JPanel(new GridLayout(1, 4));
     location.setBorder(new TitledBorder("Location"));
-    JTextField locationXField = new JTextField();
-    JTextField locationYField = new JTextField();
-    JTextField locationZField = new JTextField();
+    JTextField locationXField = new JTextField("0");
+    JTextField locationYField = new JTextField("0");
+    JTextField locationZField = new JTextField("0");
     addLabelAndTextField(location, "x =", locationXField);
     addLabelAndTextField(location, "y =", locationYField);
     addLabelAndTextField(location, "z =", locationZField);
@@ -587,9 +603,9 @@ public class Propulsion extends JPanel {
 
     JPanel orient = new JPanel(new GridLayout(1, 4));
     orient.setBorder(new TitledBorder("Orient"));
-    JTextField orientRollField = new JTextField();
-    JTextField orientPitchField = new JTextField();
-    JTextField orientYawField = new JTextField();
+    JTextField orientRollField = new JTextField("0");
+    JTextField orientPitchField = new JTextField("0");
+    JTextField orientYawField = new JTextField("0");
     addLabelAndTextField(orient, "roll =", orientRollField);
     addLabelAndTextField(orient, "pitch =", orientPitchField);
     addLabelAndTextField(orient, "yaw =", orientYawField);

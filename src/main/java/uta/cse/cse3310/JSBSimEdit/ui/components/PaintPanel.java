@@ -2,6 +2,7 @@ package uta.cse.cse3310.JSBSimEdit.ui.components;
 
 
 import generated.*;
+import uta.cse.cse3310.JSBSimEdit.ui.components.flightcontrol.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -154,8 +155,7 @@ public class PaintPanel extends JPanel {
     }
 
     private void initAerosurfaceScale(AerosurfaceScale tempAero, String returnStr) {
-        AerosurfaceComp aeroSurface = new AerosurfaceComp(tempAero.getDescription(), tempAero.getInput(), tempAero.getDomain(), tempAero.getRange(),
-                tempAero.getGain(), tempAero.getClipto(), tempAero.getOutput(), tempAero.getName(), returnStr);
+        AerosurfaceComp aeroSurface = new AerosurfaceComp(tempAero, returnStr);
 
         if (tempAero.getInput() != null) {
             DraggableIcon inputIcon = new DraggableIcon(tempAero.getInput(), "src/main/java/uta/cse/cse3310/JSBSimEdit/ui/resources/input.png");
@@ -187,8 +187,7 @@ public class PaintPanel extends JPanel {
     }
 
     private void initFilter(LagFilter tempFilter, String returnStr) {
-        LagFilterComp lagFilter = new LagFilterComp(tempFilter.getDescription(), tempFilter.getInput(), tempFilter.getC1(), tempFilter.getClipto(),
-                tempFilter.getOutput(), tempFilter.getName(), returnStr);
+        LagFilterComp lagFilter = new LagFilterComp(tempFilter, returnStr);
 
         if (tempFilter.getInput() != null) {
             DraggableIcon inputIcon = new DraggableIcon(tempFilter.getInput(), "src/main/java/uta/cse/cse3310/JSBSimEdit/ui/resources/input.png");
@@ -220,8 +219,7 @@ public class PaintPanel extends JPanel {
     }
 
     private void initDeadBand(Deadband tempDead, String returnStr, int x_startPosition, int y_startPosition) {
-        DeadBandComp deadB = new DeadBandComp(tempDead.getDescription(), tempDead.getInput(), tempDead.getWidth(), tempDead.getClipto(), tempDead.getOutput(),
-                tempDead.getName(), returnStr);
+        DeadBandComp deadB = new DeadBandComp(tempDead, returnStr);
 
         if (tempDead.getInput() != null) {
             DraggableIcon inputIcon = new DraggableIcon(tempDead.getInput(), "src/main/java/uta/cse/cse3310/JSBSimEdit/ui/resources/input.png");
@@ -243,8 +241,7 @@ public class PaintPanel extends JPanel {
     }
 
     private void initGain(PureGain tempGain, String returnStr) {
-        GainComp pure_gain = new GainComp(tempGain.getDescription(), tempGain.getInput(), tempGain.getGain(), tempGain.getClipto(), tempGain.getOutput(),
-                tempGain.getName(), returnStr);
+        GainComp pure_gain = new GainComp(tempGain, returnStr);
 
         if (tempGain.getInput() != null) {
             DraggableIcon inputIcon = new DraggableIcon(tempGain.getInput(), "src/main/java/uta/cse/cse3310/JSBSimEdit/ui/resources/input.png");
@@ -276,8 +273,7 @@ public class PaintPanel extends JPanel {
     }
 
     private void initGain(ScheduledGain tempGain, String returnStr) {
-        SGainComp scheduled_gain = new SGainComp(tempGain.getDescription(), tempGain.getInput(), tempGain.getTable(), tempGain.getGain(), tempGain.getClipto(), tempGain.getOutput(),
-                tempGain.getName(), returnStr);
+        SGainComp scheduled_gain = new SGainComp(tempGain, returnStr);
 
         if (tempGain.getInput() != null) {
             DraggableIcon inputIcon = new DraggableIcon(tempGain.getInput(), "src/main/java/uta/cse/cse3310/JSBSimEdit/ui/resources/input.png");
@@ -307,25 +303,21 @@ public class PaintPanel extends JPanel {
     }
 
     private void initPid(Pid tempPid, String returnStr, int x_startPosition, int y_startPosition) {
-        PidComp pid = new PidComp(tempPid.getDescription(), tempPid.getInput(), tempPid.getKp(), tempPid.getKi(), tempPid.getKd(), tempPid.getTrigger(),
-                tempPid.getClipto(), tempPid.getOutput(), tempPid.getName(), returnStr);
+        PidComp pid = new PidComp(tempPid, returnStr);
         pid.setBounds(x_startPosition, y_startPosition, 50, 50);
 
         add(pid);
     }
 
     private void initSwitch(Switch tempSwitch, String returnStr, int x_startPosition, int y_startPosition) {
-        SwitchComponent aSwitch = new SwitchComponent(tempSwitch.getDescription(), tempSwitch.getInput(), tempSwitch.getDefault(),
-                tempSwitch.getTest(), tempSwitch.getClipto(), tempSwitch.getOutput(), tempSwitch.getName(), returnStr);
+        SwitchComponent aSwitch = new SwitchComponent(tempSwitch, returnStr);
         aSwitch.setBounds(x_startPosition, y_startPosition, 50, 50);
 
         add(aSwitch);
     }
 
     private void initSummer(Summer tempSummer, String returnStr) {
-        SummerComp summer = new SummerComp(tempSummer.getDescription(), tempSummer.getInput(), tempSummer.getBias(), tempSummer.getClipto(),
-                tempSummer.getOutput(), tempSummer.getName(), returnStr);
-
+        SummerComp summer = new SummerComp(tempSummer, returnStr);
         // lineEnd at left-center of the component => y + 25
         lineEnd = new Point(x_startPosition, y_startPosition + 25);
 
@@ -359,8 +351,7 @@ public class PaintPanel extends JPanel {
     }
 
     private void initKinematic(Kinematic tempKinematic, String returnStr, int x_startPosition, int y_startPosition) {
-        KinematicComp kine = new KinematicComp(tempKinematic.getDescription(), tempKinematic.getInput(), tempKinematic.getTraverse(), tempKinematic.getClipto(), tempKinematic.getOutput(),
-                tempKinematic.getName(), returnStr, x_startPosition, y_startPosition);
+        KinematicComp kine = new KinematicComp(tempKinematic, returnStr);
 
         if (tempKinematic.getInput() != null) {
             DraggableIcon inputIcon = new DraggableIcon(tempKinematic.getInput(), "src/main/java/uta/cse/cse3310/JSBSimEdit/ui/resources/input.png");

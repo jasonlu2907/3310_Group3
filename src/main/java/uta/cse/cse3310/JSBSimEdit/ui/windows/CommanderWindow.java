@@ -13,19 +13,26 @@ import uta.cse.cse3310.JSBSimEdit.ui.components.Propulsion;
 import uta.cse.cse3310.JSBSimEdit.ui.components.*;
 import uta.cse.cse3310.JSBSimEdit.ui.components.system.SystemProperties;
 
+import org.json.simple.JSONObject;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.io.File;
 
 public class CommanderWindow extends JFrame {
   private FdmConfig cfg;
+  private JSONObject engineMgr;
   private MainWindow mainWindow;
   private JTabbedPane tabbedPane;
+  private File inputFile;
 
-  public CommanderWindow(String title, FdmConfig cfg, MainWindow mainWindow) {
+  public CommanderWindow(String title, FdmConfig cfg, JSONObject engineMgr, MainWindow mainWindow, File inputFile) {
     super(title);
     this.cfg = cfg;
+    this.engineMgr = engineMgr;
     this.mainWindow = mainWindow;
+    this.inputFile = inputFile;
 
     this.setLocationByPlatform(true);
     this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -50,7 +57,7 @@ public class CommanderWindow extends JFrame {
 
   public void onSaveClick() {
     mainWindow.parseOutput();
-    }
+  }
 
   protected void onOpenClick() {
   }
@@ -58,11 +65,11 @@ public class CommanderWindow extends JFrame {
   protected void onQuitClick() {
 
     int button = JOptionPane.showConfirmDialog( // Show the save dialog
-            this,
-            "Do you want to save new files?",
-            "Some unchanged files",
-            JOptionPane.OK_CANCEL_OPTION,
-            JOptionPane.QUESTION_MESSAGE);
+        this,
+        "Do you want to save new files?",
+        "Some unchanged files",
+        JOptionPane.OK_CANCEL_OPTION,
+        JOptionPane.QUESTION_MESSAGE);
     if (button == JOptionPane.OK_OPTION) { // If OK clicks, save new changes
       onSaveClick();
     }
@@ -108,19 +115,19 @@ public class CommanderWindow extends JFrame {
   }
 
   private JTabbedPane createTabbedPane(CommanderWindow mainFrame) {
-    GeneralInformation generalInfo = new GeneralInformation();
+    GeneralInformation generalInfo = new GeneralInformation(cfg.getFileheader(), inputFile);
     Metrics metrics = initializeMetrics(cfg);
     MassBalance massBalance = initializeMassBalance(cfg);
     GroundReaction groundReact = initializeGroundReaction();
     ExternalReaction externalReaction = initializeExternalReaction();
     BuoyantForce buoyantForce = new BuoyantForce();
-    Propulsion propulsion = new Propulsion(cfg, mainFrame);
+    Propulsion propulsion = new Propulsion(cfg, engineMgr, mainFrame);
     FlightControl flightControl = initializeFlightControl();
     Aerodynamics aeroDynamics = initializeAerodynamics();
     SystemProperties systemProperties = initializeSystem();
     Autopilot autoPilot = initializeAutopilot();
     Output output = new Output();
-    Input input = new Input();
+    Input input = new Input(cfg, mainFrame);
 
     JTabbedPane tabbedPane = new JTabbedPane();
     tabbedPane.addTab("general_info", generalInfo);

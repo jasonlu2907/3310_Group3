@@ -39,6 +39,18 @@
       <version>4.0.0</version>
       <scope>runtime</scope>
     </dependency>
+
+    <dependency>
+      <groupId>com.googlecode.json-simple</groupId>
+      <artifactId>json-simple</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20190722</version>
+    </dependency>
   </dependencies>
 
 
@@ -105,7 +117,7 @@
         </executions>
         <configuration>
           <sources>
-            <source>src/main/xsd/JSBSim.xsd</source>
+            <source>src/main/resources/schema/JSBSim.xsd</source>
           </sources>
           <outputDirectory>${basedir}/src/main/java</outputDirectory>
           <clearOutputDir>false</clearOutputDir>

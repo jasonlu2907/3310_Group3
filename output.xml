@@ -27,7 +27,7 @@
         <reference author="n/a" date="n/a" refID="None" title="http://www.codeonemagazine.com/archives/1991/articles/jul_91/july2a_91.html"/>
     </fileheader>
     <metrics>
-        <wingarea unit="FT2">300.0</wingarea>
+        <wingarea unit="FT2">1323124.0</wingarea>
         <wingspan unit="FT">30.0</wingspan>
         <chord unit="FT">11.32</chord>
         <htailarea unit="FT2">63.7</htailarea>
@@ -329,9 +329,9 @@
         </tank>
     </propulsion>
     <system file="pushback">
-        <property>/sim/model/bello/kp</property>
+        <property>/sim/model/pushback/kp</property>
         <property>/sim/model/pushback/ki</property>
-        <property>/concat/model/hook/kp</property>
+        <property>/sim/model/pushback/kd</property>
     </system>
     <system file="hook"/>
     <autopilot name="F15 Autopilot">

@@ -239,18 +239,24 @@ public class ExternalReaction extends JPanel {
     JLabel location = new JLabel("<HTML><br/>Location:</HTML>");
     JLabel location_x = new JLabel("<HTML><br/>x = </HTML>");
     JTextField location_x_texts = new JTextField(10);
+    location_x_texts.setText("0");
     JLabel location_y = new JLabel("<HTML><br/>y = </HTML>");
     JTextField location_y_texts = new JTextField(10);
+    location_y_texts.setText("0");
     JLabel location_z = new JLabel("<HTML><br/>z = </HTML>");
     JTextField location_z_texts = new JTextField(10);
+    location_z_texts.setText("0");
 
     JLabel direction = new JLabel("<HTML><br/>Direction:</HTML>");
     JLabel direction_x = new JLabel("<HTML><br/>x = </HTML>");
     JTextField direction_x_texts = new JTextField(10);
+    direction_x_texts.setText("0");
     JLabel direction_y = new JLabel("<HTML><br/>y = </HTML>");
     JTextField direction_y_texts = new JTextField(10);
+    direction_y_texts.setText("0");
     JLabel direction_z = new JLabel("<HTML><br/>z = </HTML>");
     JTextField direction_z_texts = new JTextField(10);
+    direction_z_texts.setText("0");
 
     Object[] objects = { // Array of widgets to display
             name, names,

@@ -14,6 +14,10 @@ import generated.Weight;
 import generated.WeightType;
 
 public class PanelBuilder extends JPanel{
+    protected JLabel jlabel;
+    protected JTextField jtextfield;
+    protected JComboBox jComboBox;
+
     //makes a jlabel and a field to go with it
     //INPUTS/////////////////////////////////////////////////////////
     ////label = the text of the jlabel
@@ -21,8 +25,8 @@ public class PanelBuilder extends JPanel{
     //OUTPUTS////////////////////////////////////////////////////////
     //returns a panel with the label and then the field next to it
     public JPanel LabelFieldPanel (String label, String field){
-        JLabel jlabel = new JLabel(label);
-        JTextField jtextfield = new JTextField(field, 20);
+        jlabel = new JLabel(label);
+        jtextfield = new JTextField(field, 20);
         JPanel LFPanel = new JPanel();
         LFPanel.add(jlabel);
         LFPanel.add(jtextfield);
@@ -39,9 +43,9 @@ public class PanelBuilder extends JPanel{
     //OUTPUTS////////////////////////////////////////////////////////
     ////returns a panel with the label and then the field and box next to it
     public <T> JPanel LabelFieldBoxPanel (String label, String field, T[] boxContents, T selectedItem){
-        JLabel jlabel = new JLabel(label);
-        JTextField jtextfield = new JTextField(field, 20);
-        JComboBox<T> jComboBox = new JComboBox<T>(boxContents);
+        jlabel = new JLabel(label);
+        jtextfield = new JTextField(field, 20);
+        jComboBox = new JComboBox<T>(boxContents);
         jComboBox.setSelectedItem(selectedItem);
         JPanel LFBPanel = new JPanel();
 
@@ -62,8 +66,8 @@ public class PanelBuilder extends JPanel{
         JTextField location_z_texts = new JTextField(loc!=null ? String.valueOf(loc.getZ()):"",10);
 
         JLabel unit = new JLabel("Unit");
-        LengthType[] unitTypes = {LengthType.FT,LengthType.IN,LengthType.M};
-        JComboBox<LengthType> unitsBox = new JComboBox<>(unitTypes);
+        String[] unitTypes = {".FT","IN","M"};
+        JComboBox<String> unitsBox = new JComboBox<>(unitTypes);
         unitsBox.setSelectedItem((loc!=null ? loc.getUnit():unitTypes[0]));
 
 
@@ -103,5 +107,58 @@ public class PanelBuilder extends JPanel{
                 LocationTemplate(pm!=null ? pm.getLocation():null), WeightTemplate(pm!=null ? pm.getWeight():null)
         };
         return objects;
+    }
+
+    public JLabel getJLabel() {
+        return jlabel;
+    }
+
+    public JTextField getJTextField() {
+        return jtextfield;
+    }
+
+    public JComboBox getJComboBox() {
+        return jComboBox;
+    }
+
+    public double getFieldValue(JPanel panel) {
+        Component[] components = panel.getComponents();
+
+        for (Component component : components) {
+            if (component instanceof JPanel) {
+                double value = getFieldValue((JPanel) component); // Recursively iterate through nested JPanels
+                if (value != 0) {
+                    return value; // Return the value if found in the nested JPanel
+                }
+            } else if (component instanceof JTextField) {
+                try {
+                    return Double.parseDouble(((JTextField) component).getText());
+                } catch (NumberFormatException e) {
+                    return 0; // Handle cases where parsing the text to double fails
+                }
+            }
+        }
+        return 0;
+    }
+
+    //geting the unit from the combo box
+    public Object getUnitValue(JPanel panel) {
+        Component[] components = panel.getComponents();
+
+        for (Component component : components) {
+            if (component instanceof JPanel) {
+                Object unit = getUnitValue((JPanel) component); // Recursively iterate through nested JPanels
+                if (unit != null) {
+                    return unit; // Return the value if found in the nested JPanel
+                }
+            } else if (component instanceof JComboBox) {
+                try {
+                    return ((JComboBox) component).getSelectedItem();
+                } catch (NumberFormatException e) {
+                    return 0; // Handle cases where parsing the text to double fails
+                }
+            }
+        }
+        return null;
     }
 }

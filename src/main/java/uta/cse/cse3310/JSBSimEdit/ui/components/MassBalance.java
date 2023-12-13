@@ -1,14 +1,17 @@
 package uta.cse.cse3310.JSBSimEdit.ui.components;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.util.List;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -16,10 +19,9 @@ import javax.swing.border.TitledBorder;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.math.BigDecimal;
 
-import generated.Direction;
 import generated.Emptywt;
-import generated.Force;
 import generated.InertiaType;
 import generated.Ixx;
 import generated.Ixy;
@@ -27,7 +29,6 @@ import generated.Ixz;
 import generated.Iyy;
 import generated.Iyz;
 import generated.Izz;
-import generated.LengthType;
 import generated.Location;
 import generated.Pointmass;
 import generated.Weight;
@@ -44,7 +45,7 @@ public class MassBalance extends JPanel{
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         WeightType[] weightType = {WeightType.KG,WeightType.LBS};
-        LengthType[] lenType = {LengthType.FT, LengthType.IN, LengthType.M};
+        String[] locUnits = {"FT","IN","M"};
         InertiaType[] inertiaType = {InertiaType.KG_M_2,InertiaType.SLUG_FT_2};
 
         PanelBuilder pb = new PanelBuilder();
@@ -77,7 +78,8 @@ public class MassBalance extends JPanel{
         locationPanel.setBorder(new TitledBorder("Location(*)"));
         locationPanel.add(pb.LabelFieldPanel("x = ", String.valueOf(location.getX())));
         locationPanel.add(pb.LabelFieldPanel("y = ", String.valueOf(location.getY())));
-        locationPanel.add(pb.LabelFieldBoxPanel("z = ", String.valueOf(location.getZ()),lenType,location.getUnit()));
+        locationPanel.add(pb.LabelFieldBoxPanel("z = ", String.valueOf(location.getZ()),locUnits,location.getUnit()));
+        Component[] locComponents = locationPanel.getComponents(); //FOR SAVING LATER
         add(locationPanel);
 
         //MOMENT OF THE INERTIA////////////
@@ -141,9 +143,47 @@ public class MassBalance extends JPanel{
             onDeletePMClick(selectedIndex);
         });
 
+        //add button
+        JButton save = new JButton("Save text fields");
+        save.setActionCommand("Save changes");
+        save.setToolTipText("Save changes");
+        save.addActionListener(event -> { //SET ALL THE VALUES
+            emptywt.setValue(pb.getFieldValue(massPanel));
+            emptywt.setUnit((WeightType)pb.getUnitValue(massPanel));
+            
+            // LOCATIONS
+            location.setX(pb.getFieldValue((JPanel)locComponents[0]));
+            location.setY(pb.getFieldValue((JPanel)locComponents[1]));
+            location.setZ(pb.getFieldValue((JPanel)locComponents[2]));
+            location.setUnit((String)pb.getUnitValue((JPanel)locComponents[2]));
+
+            //MOMENT OF INERTIA
+            ixx.setValue(pb.getFieldValue(ixxPanel));
+            ixx.setUnit((InertiaType)pb.getUnitValue(ixxPanel));
+
+            iyy.setValue(pb.getFieldValue(iyyPanel));
+            iyy.setUnit((InertiaType)pb.getUnitValue(iyyPanel));
+
+            izz.setValue(pb.getFieldValue(izzPanel));
+            izz.setUnit((InertiaType)pb.getUnitValue(izzPanel));
+
+            ixy.setValue(BigDecimal.valueOf(pb.getFieldValue(ixyPanel)));
+            ixy.setUnit((InertiaType)pb.getUnitValue(ixyPanel));
+
+            ixz.setValue(BigDecimal.valueOf(pb.getFieldValue(ixzPanel)));
+            ixz.setUnit((InertiaType)pb.getUnitValue(ixzPanel));
+
+            iyz.setValue(BigDecimal.valueOf(pb.getFieldValue(iyzPanel)));
+            iyz.setUnit((InertiaType)pb.getUnitValue(iyzPanel));
+
+            
+        });
+
         JPanel buttons = new JPanel(new FlowLayout());
         buttons.add(newPM);
         buttons.add(deletePM);
+        buttons.add(save);
+
 
         pmPanel.add(buttons,BorderLayout.PAGE_END);
 
@@ -214,6 +254,7 @@ public class MassBalance extends JPanel{
             newWeight.setUnit((WeightType)((javax.swing.JComboBox)objects[2][3]).getSelectedItem());
             newPM.setWeight(newWeight);
 
+            this.pointmasses.add(newPM);
 
             // update the JList
             updateJList();
@@ -251,6 +292,7 @@ public class MassBalance extends JPanel{
         return pointmasses;
     }
 
+    
 
 
 
